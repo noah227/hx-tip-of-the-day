@@ -1,8 +1,8 @@
 {
 	"id": "noahyoung-hx-tip-of-the-day",
 	"name": "hx-tip-of-the-day",
-	"description": "每日一句",
-	"displayName": "每日一句",
+	"description": "每日小贴士",
+	"displayName": "每日小贴士",
 	"version": "0.0.0",
 	"publisher": "Noah Young",
 	"engines": {
@@ -23,12 +23,15 @@
 		"onCommand:extension.showTip"
 	],
 	"contributes": {
-		"commands": [{
-			"command": "extension.showTip",
-			"title": "每日一句"
-		}],
+		"commands": [
+			{
+				"command": "extension.showTip",
+				"title": "每日小贴士"
+			}
+		],
 		"menus": {
-			"menubar/help": [{
+			"menubar/help": [
+				{
 					"command": "extension.showTip",
 					"group": "license"
 				},

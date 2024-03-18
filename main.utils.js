@@ -60,13 +60,13 @@ const getTipContent = (delta = 0) => {
 const showTipDialog = (content) => {
 	let webviewDialog = hx.window.createWebViewDialog({
 		modal: false,
-		title: "每日一句",
+		title: "每日小贴士",
 		dialogButtons: [
 			"上一条", "下一条", "关闭"
 		],
 		size: {
-			width: 620,
-			height: 480
+			width: 720,
+			height: 520
 		}
 	}, {
 		enableScripts: true
@@ -107,6 +107,7 @@ const setHtml = (webview, htmlContent) => {
 	webview.html = `
 	    <html>
 		<head>
+			${getThemeFit()}
 			<style>
 				body {margin: 0;}
 				img {max-width: 100%; object-fit: contain;}
@@ -141,6 +142,38 @@ const setHtml = (webview, htmlContent) => {
 	    </script>
 	    </html>
 	`
+}
+
+/**
+ * 主题适配
+ * 直接摘抄自官方文档
+ */
+const getThemeFit = () => {
+	// hx的dialog创建并没有适配主题，只有webview可以适配，会非常丑
+	return ""
+	var background = '';
+	var color = ""
+	let config = hx.workspace.getConfiguration();
+	let colorScheme = config.get('editor.colorScheme');
+	if (colorScheme == 'Monokai') {
+		background = 'rgb(39,40,34)'
+		color = "#f0f0f0"
+	} else if (colorScheme == 'Atom One Dark') {
+		background = 'rgb(40,44,53)'
+		color = "f0f0f0"
+	} else {
+		background = 'rgb(255,250,232)'
+		color = "#232323"
+	};
+	const style = `
+		<style>
+			body {
+				color: ${color};
+				background-color: ${background}
+			}
+		</style>
+	`
+	return style
 }
 
 module.exports = {
