@@ -39,6 +39,16 @@
 					"group": "z_commands"
 				}
 			]
+		},
+		"configuration": {
+			"title": "每日小贴士",
+			"properties": {
+				"noahyoung-hx-tip-of-the-day.useRandomIndex": {
+					"type": "boolean",
+					"default": false,
+					"description": "随机展示"
+				}
+			}
 		}
 	},
 	"extensionDependencies": [

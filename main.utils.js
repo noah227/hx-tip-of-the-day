@@ -28,11 +28,18 @@ const loadLastTipIndex = () => {
  * @param {number} listLength tips列表长度
  */
 const getCurrentTipIndex = (listLength, delta = 0) => {
+	if(useRandomIndex()) {
+		return Math.floor(Math.random() * listLength)
+	}
 	const lastIndex = loadLastTipIndex()
 	const tipIndex = lastIndex + delta
 	if (tipIndex < 0) return 0
 	// 防止文件数量变动导致的索引越界的情况
 	return tipIndex < listLength ? tipIndex : 0
+}
+
+const useRandomIndex = () => {
+	return hx.workspace.getConfiguration(pkgId).get("useRandomIndex")
 }
 
 /**
@@ -44,7 +51,7 @@ const saveTipIndex = (index) => {
 	hx.workspace.getConfiguration(pkgId).update("tipIndex", index)
 }
 
-const getTipContent = (delta = 0) => {
+const getTipContent = (delta = 1) => {
 	const tipsList = loadRenderList()
 	const tipIndex = getCurrentTipIndex(tipsList.length, delta)
 	saveTipIndex(tipIndex)
