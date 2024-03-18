@@ -16,11 +16,11 @@
 
 * 主题同步 
 * 基础数据构成，来自官方[高效极客技巧](https://hx.dcloud.net.cn/Tutorial/UserGuide/skill)
+  	* 从官方摘取的tip以下划线开头命名
+	* 部分异常（占用空间大，无效信息量多）的图片可能被替换
 
 ## 欢迎贡献
 
 * 每条tip包含一句摘要
 	* 摘要信息简洁明了
 * 每条tip可以包含若干图片
-
-用markdown-it吧，处理src还方便
