@@ -1,0 +1,47 @@
+{
+	"id": "noahyoung-hx-tip-of-the-day",
+	"name": "hx-tip-of-the-day",
+	"description": "每日一句",
+	"displayName": "每日一句",
+	"version": "0.0.0",
+	"publisher": "Noah Young",
+	"engines": {
+		"HBuilderX": "^2.7.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"tip",
+		"day",
+		"idea",
+		"pycharm",
+		"webstorm"
+	],
+	"main": "./extension",
+	"activationEvents": [
+		"onCommand:extension.showTip"
+	],
+	"contributes": {
+		"commands": [{
+			"command": "extension.showTip",
+			"title": "每日一句"
+		}],
+		"menus": {
+			"menubar/help": [{
+					"command": "extension.showTip",
+					"group": "license"
+				},
+				{
+					"group": "z_commands"
+				}
+			]
+		}
+	},
+	"extensionDependencies": [
+		"plugin-manager"
+	],
+	"dependencies": {
+		"marked": "^12.0.1"
+	}
+}
