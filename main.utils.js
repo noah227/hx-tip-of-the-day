@@ -60,8 +60,10 @@ const getTipContent = (delta = 1) => {
 	const tipPath = path.resolve(__dirname, `./${tipDir}/tip.md`)
 	const content = fs.readFileSync(tipPath, {
 		encoding: "utf8"
-	})
-	return marked.parse(content).replaceAll("./", path.join(__dirname, tipDir) + "/")
+	}) 
+	const joinPart = path.join(__dirname, tipDir) + "/"
+	// src修正
+	return marked.parse(content).replaceAll(/(src=")(\.\/)?(.)/g, `$1${joinPart}$3`) 
 }
 
 const showTipDialog = (content) => {
