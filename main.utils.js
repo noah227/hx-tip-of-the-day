@@ -33,7 +33,7 @@ const getCurrentTipIndex = (listLength, delta = 0) => {
 	}
 	const lastIndex = loadLastTipIndex()
 	const tipIndex = lastIndex + delta
-	if (tipIndex < 0) return 0
+	if (tipIndex < 0) return listLength - 1
 	// 防止文件数量变动导致的索引越界的情况
 	return tipIndex < listLength ? tipIndex : 0
 }
