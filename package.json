@@ -20,7 +20,7 @@
 	],
 	"main": "./extension",
 	"activationEvents": [
-		"onCommand:extension.showTip"
+		"*"
 	],
 	"contributes": {
 		"commands": [
