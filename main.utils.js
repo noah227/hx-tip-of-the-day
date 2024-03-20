@@ -66,13 +66,13 @@ const getTipContent = (delta = 1) => {
 	return marked.parse(content).replaceAll(/(src=")(\.\/)?(.)/g, `$1${joinPart}$3`) 
 }
 
-const showTipDialog = (content) => {
+const showTipDialog = (content, isLaunchTriggered) => {
+	let buttons = ["上一条", "下一条", "关闭"]
+	if(isLaunchTriggered) buttons = ["不再展示", ...buttons]
 	let webviewDialog = hx.window.createWebViewDialog({
 		modal: false,
 		title: "每日小贴士",
-		dialogButtons: [
-			"上一条", "下一条", "关闭"
-		],
+		dialogButtons: buttons,
 		size: {
 			width: 720,
 			height: 520
@@ -89,6 +89,11 @@ const showTipDialog = (content) => {
 		switch (msg.command) {
 			case "close":
 				webviewDialog.close()
+				break
+			case "dont-show":
+				webviewDialog.close()
+				hx.workspace.getConfiguration(pkgId).update("activateOnLaunch", false)
+				hx.window.showInformationMessage("已设置不再展示，可到插件配置里修改")
 				break
 			case "show-prev":
 				setHtml(webview, getTipContent(-1))
@@ -131,6 +136,11 @@ const setHtml = (webview, htmlContent) => {
 					if(button == '上一条'){
 					    hbuilderx.postMessage({
 					        command: 'show-prev'
+					    });
+					}
+					else if(button == '不再展示'){
+					    hbuilderx.postMessage({
+					        command: 'dont-show'
 					    });
 					}
 	                else if(button == '下一条'){

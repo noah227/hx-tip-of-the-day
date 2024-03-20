@@ -12,9 +12,9 @@ const {
 // 其中要注意个静态资源路径替换的问题
 
 
-const renderTip = (context) => {
+const renderTip = (context, isLaunchTriggered=false) => {
 	const md = getTipContent()
-	showTipDialog(md)
+	showTipDialog(md, isLaunchTriggered)
 }
 
 module.exports = {

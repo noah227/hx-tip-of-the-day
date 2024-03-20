@@ -47,6 +47,11 @@
 					"type": "boolean",
 					"default": false,
 					"description": "随机展示"
+				},
+				"noahyoung-hx-tip-of-the-day.activateOnLaunch": {
+					"type": "boolean",
+					"default": true,
+					"description": "IDE启动时展示"
 				}
 			}
 		}
