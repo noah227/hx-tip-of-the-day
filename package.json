@@ -6,7 +6,7 @@
 	"version": "0.0.0",
 	"publisher": "Noah Young",
 	"engines": {
-		"HBuilderX": "^2.7.0"
+		"HBuilderX": "^3.0.0"
 	},
 	"categories": [
 		"Other"
