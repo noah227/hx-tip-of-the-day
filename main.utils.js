@@ -8,10 +8,14 @@ const {
 const excludeList = ["template"]
 /**
  * 加载tips列表
+ * 在排除列表的会排除
+ * 以`test-`开头的也会排除
  */
 const loadRenderList = () => {
 	const tipsRoot = path.resolve(__dirname, "tips")
-	return fs.readdirSync(tipsRoot).filter(d => excludeList.indexOf(d) < 0)
+	return fs.readdirSync(tipsRoot).filter(d => {
+		return excludeList.indexOf(d) < 0 && fs.statSync(path.resolve(tipsRoot, d)).isDirectory() && !d.startsWith("test-")
+	})
 }
 
 
