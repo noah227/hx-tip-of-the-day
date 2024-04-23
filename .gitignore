@@ -2,6 +2,9 @@
 node_modules
 dist
 *.zip
+builder/docs
+builder/out
+tips/*/
 
 # local env files
 .env.local
