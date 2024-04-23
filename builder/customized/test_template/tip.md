@@ -1,5 +1,6 @@
-# 这是示范模版
+# 这是自定义tip示范模版
 
-> 资源放到tip_files即可，生成时会自动处理
+* 资源放到tip_files，生成时会自动处理
+* md命名tip.md 
 
 ![](tip_files/hello.gif)
