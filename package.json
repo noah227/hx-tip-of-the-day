@@ -60,6 +60,7 @@
 		"plugin-manager"
 	],
 	"dependencies": {
-		"marked": "^12.0.1"
+		"marked": "^12.0.1",
+		"uuid": "^9.0.1"
 	}
 }

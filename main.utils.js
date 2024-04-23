@@ -6,15 +6,19 @@ const {
 } = require("marked")
 
 const excludeList = ["template"]
+
+const tipsRoot = path.resolve(__dirname, "tips")
+const markdownDir = path.resolve(tipsRoot, "markdowns")
+const imagesDir = path.resolve(tipsRoot, "images")
 /**
  * 加载tips列表
  * 在排除列表的会排除
  * 以`test-`开头的也会排除
  */
 const loadRenderList = () => {
-	const tipsRoot = path.resolve(__dirname, "tips")
-	return fs.readdirSync(tipsRoot).filter(d => {
-		return excludeList.indexOf(d) < 0 && fs.statSync(path.resolve(tipsRoot, d)).isDirectory() && !d.startsWith("test-")
+	return fs.readdirSync(markdownDir).filter(d => {
+		return excludeList.indexOf(d) < 0 && fs.statSync(path.resolve(markdownDir, d)).isDirectory() && !d
+			.startsWith("test-")
 	})
 }
 
@@ -32,7 +36,7 @@ const loadLastTipIndex = () => {
  * @param {number} listLength tips列表长度
  */
 const getCurrentTipIndex = (listLength, delta = 0) => {
-	if(useRandomIndex()) {
+	if (useRandomIndex()) {
 		return Math.floor(Math.random() * listLength)
 	}
 	const lastIndex = loadLastTipIndex()
@@ -60,19 +64,20 @@ const getTipContent = (delta = 1) => {
 	const tipIndex = getCurrentTipIndex(tipsList.length, delta)
 	saveTipIndex(tipIndex)
 	const tipName = tipsList[tipIndex]
-	const tipDir = `./tips/${tipName}`
-	const tipPath = path.resolve(__dirname, `./${tipDir}/tip.md`)
+	// 当前tip文件夹
+	const tipDir = path.resolve(markdownDir, tipName)
+	// 当前md路径
+	const tipPath = path.resolve(tipDir, "tip.md")
 	const content = fs.readFileSync(tipPath, {
 		encoding: "utf8"
-	}) 
-	const joinPart = path.join(__dirname, tipDir) + "/"
+	})
 	// src修正
-	return marked.parse(content).replaceAll(/(src=")(\.\/)?(.)/g, `$1${joinPart}$3`) 
+	return marked.parse(content).replaceAll(/(src=")(tip_files)?\/(\w+\/)*([\w-]+\.\w+)/g, `$1${imagesDir}/$4`)
 }
 
 const showTipDialog = (content, isLaunchTriggered) => {
 	let buttons = ["上一条", "下一条", "关闭"]
-	if(isLaunchTriggered) buttons = ["不再展示", ...buttons]
+	if (isLaunchTriggered) buttons = ["不再展示", ...buttons]
 	let webviewDialog = hx.window.createWebViewDialog({
 		modal: false,
 		title: "每日小贴士",
