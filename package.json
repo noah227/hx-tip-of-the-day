@@ -16,7 +16,8 @@
 		"day",
 		"idea",
 		"pycharm",
-		"webstorm"
+		"webstorm",
+		"每日"
 	],
 	"main": "./extension",
 	"scripts": {
