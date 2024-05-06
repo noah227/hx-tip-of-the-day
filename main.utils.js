@@ -75,16 +75,32 @@ const getTipContent = (delta = 1) => {
 	return marked.parse(content).replaceAll(/(src=")(tip_files)?\/(\w+\/)*([\w-]+\.\w+)/g, `$1${imagesDir}/$4`)
 }
 
+const getWindowSize = () => {
+	const sizeS = hx.workspace.getConfiguration(pkgId).get("webviewSize")
+	let w = 720, h = 520
+	try {
+		let [_w, _h] = sizeS.trim().split(":")
+		_w = parseInt(_w), _h = parseInt(_h)
+		w = _w || w
+		h = _h || h
+	}
+	catch(e){
+		console.error(e)
+	}
+	return [w, h]
+}
+
 const showTipDialog = (content, isLaunchTriggered) => {
 	let buttons = ["上一条", "下一条", "关闭"]
 	if (isLaunchTriggered) buttons = ["不再展示", ...buttons]
+	const [w, h] = getWindowSize()
 	let webviewDialog = hx.window.createWebViewDialog({
 		modal: false,
 		title: "每日小贴士",
 		dialogButtons: buttons,
 		size: {
-			width: 720,
-			height: 520
+			width: w,
+			height: h
 		}
 	}, {
 		enableScripts: true

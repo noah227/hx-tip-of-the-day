@@ -57,6 +57,11 @@
 					"type": "boolean",
 					"default": true,
 					"description": "IDE启动时展示"
+				},
+				"noahyoung-hx-tip-of-the-day.webviewSize": {
+					"type": "string",
+					"default": "720:520",
+					"description": "窗体大小（宽高，冒号分隔，默认720:520）"
 				}
 			}
 		}
