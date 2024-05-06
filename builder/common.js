@@ -1,5 +1,19 @@
 const fs = require("fs")
 const path = require("path")
+
+/**
+ * 过滤有效的文件夹
+ * @param {string[]} dir
+ * @param {(p, d) => boolean} extraFilter 额外的过滤
+ */
+const filterDirs = (sList, cwd=null, extraFilter=null) => {
+	extraFilter = extraFilter || ((p, d) => true)
+	return sList.filter(s => {
+		const p = cwd ? path.resolve(cwd, s) : s
+		return fs.statSync(p).isDirectory() && extraFilter(p, s)
+	})
+}
+
 const _ = {
 	/**
 	 * 文件名修正，以避免非法文件名
@@ -14,6 +28,15 @@ const _ = {
 	touchDir(fsPath){
 		if(!fs.existsSync(fsPath)) fs.mkdirSync(fsPath)
 		return fsPath
+	},
+	filterDirs,
+	/**
+	 * 读取并过滤有效的文件夹
+	 * @param {string[]} dir
+	 * @param {(p, d: string) => boolean} extraFilter 额外的过滤
+	 */
+	readAndfilterDirs(dir, extraFilter=null){
+		return filterDirs(fs.readdirSync(dir), dir, extraFilter)
 	},
 	/**
 	 * 提取markdown内容，以`##`级别进行断落划分

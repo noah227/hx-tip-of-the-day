@@ -2,7 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const {execSync} = require("child_process")
 
-const {fixName, touchDir, extractMd} = require("./common")
+const {fixName, touchDir, extractMd, readAndfilterDirs} = require("./common")
 
 // 拉取内存存储路径
 const docsPath = path.resolve(__dirname, "docs")
@@ -106,7 +106,10 @@ module.exports = {
 		const uuid = require("uuid") 
 		// 自定义tip源根路径
 		const customizedRoot = path.resolve(__dirname, "customized")
-		const dirs = fs.readdirSync(customizedRoot).filter(d => fs.statSync(path.resolve(customizedRoot, d)).isDirectory() && d !== "template")
+		const isProduction = process.env.NODE_ENV === "production"
+		const dirs = readAndfilterDirs(customizedRoot, (p, d) => {
+			return d !== "template" && (isProduction ? !d.startsWith("test_") : true)
+		})
 		const contentList = []
 		// 临时输出文件夹
 		const customizedOutDir = touchDir(path.resolve(outDir, "customized"))

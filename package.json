@@ -20,7 +20,8 @@
 	],
 	"main": "./extension",
 	"scripts": {
-		"generate": "node ./builder/generate.js"
+		"generate:dev": "cross-env NODE_ENV=development node ./builder/generate.js",
+		"generate": "cross-env NODE_ENV=production node ./builder/generate.js"
 	},
 	"activationEvents": [
 		"*"
@@ -67,6 +68,7 @@
 		"uuid": "^9.0.1"
 	},
 	"devDependencies": {
+		"cross-env": "^7.0.3",
 		"inquirer": "^8.2.4"
 	}
 }
