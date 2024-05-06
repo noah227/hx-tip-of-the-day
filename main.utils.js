@@ -133,7 +133,7 @@ const setHtml = (webview, htmlContent) => {
 			${getThemeFit()}
 			<style>
 				body {margin: 0;}
-				img {max-width: 100%; object-fit: contain;}
+				img {max-width: 100%; object-fit: contain; /** 覆盖官方的行内zoom设定 */ zoom: unset!important;}
 			</style>
 		<head>
 		<body>${htmlContent}</body>
