@@ -104,12 +104,15 @@ module.exports = {
 	 */
 	processCustomized(){
 		const uuid = require("uuid") 
+		// 自定义tip源根路径
 		const customizedRoot = path.resolve(__dirname, "customized")
 		const dirs = fs.readdirSync(customizedRoot).filter(d => fs.statSync(path.resolve(customizedRoot, d)).isDirectory() && d !== "template")
 		const contentList = []
+		// 临时输出文件夹
 		const customizedOutDir = touchDir(path.resolve(outDir, "customized"))
 		
 		const copyMediasFull = []
+		// md临时输出文件夹
 		const customizedOutMdDir = touchDir(path.resolve(customizedOutDir, "markdowns"))
 		// 文件名随机化防冲突处理
 		dirs.forEach(d => {
@@ -130,6 +133,7 @@ module.exports = {
 			const currentOutDir = touchDir(path.resolve(customizedOutMdDir, d))
 			fs.writeFileSync(path.resolve(currentOutDir, "tip.md"), mdContentProcessed, {encoding: "utf-8"})
 		})
+		// 图片临时输出文件夹
 		const imageOutDir = touchDir(path.resolve(customizedOutDir, "images"))
 		copyMediasFull.forEach(({id, mediaList}) => {
 			mediaList.forEach(([rename, name, ext]) => {
