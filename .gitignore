@@ -5,6 +5,7 @@ dist
 builder/docs
 builder/out
 tips/*/
+record.json
 
 # local env files
 .env.local

@@ -4,7 +4,10 @@ const path = require("path")
 const {
 	marked
 } = require("marked")
+const {Helper} = require("hx-configuration-helper")
+const keyMap = require("./config.helper")
 
+const helper = new Helper(__dirname)
 const excludeList = ["template"]
 
 const tipsRoot = path.resolve(__dirname, "tips")
@@ -76,7 +79,7 @@ const getTipContent = (delta = 1) => {
 }
 
 const getWindowSize = () => {
-	const sizeS = hx.workspace.getConfiguration(pkgId).get("webviewSize")
+	const sizeS = helper.getItem(keyMap.webviewSize)
 	let w = 720, h = 520
 	try {
 		let [_w, _h] = sizeS.trim().split(":")
@@ -134,8 +137,23 @@ const showTipDialog = (content, isLaunchTriggered) => {
 	let promi = webviewDialog.show();
 	promi.then(function(data) {
 		// 处理错误信息
+		logLastLaunch()
 	});
 
+}
+
+const getRecordPath = () => path.resolve(__dirname, "record.json")
+const getRecord = () => {
+	const recordPath = getRecordPath()
+	return fs.existsSync(recordPath) ? JSON.parse(fs.readFileSync(recordPath, {encoding: "utf8"})) : {}
+}
+/**
+ * 记录上次启动时间
+ */
+const logLastLaunch = () => {
+	const data = getRecord()
+	data.lastLaunchTime = Date.now()
+	fs.writeFileSync(getRecordPath(), JSON.stringify(data), {encoding: "utf8"})
 }
 
 /**
@@ -223,5 +241,7 @@ const getThemeFit = () => {
 module.exports = {
 	loadRenderList,
 	getTipContent,
-	showTipDialog
+	showTipDialog,
+	getRecord,
+	h: helper
 }

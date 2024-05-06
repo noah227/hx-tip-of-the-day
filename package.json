@@ -22,7 +22,8 @@
 	"main": "./extension",
 	"scripts": {
 		"generate:dev": "cross-env NODE_ENV=development node ./builder/generate.js",
-		"generate": "cross-env NODE_ENV=production node ./builder/generate.js"
+		"generate": "cross-env NODE_ENV=production node ./builder/generate.js",
+		"cfg:build": "hx-cfg-helper"
 	},
 	"activationEvents": [
 		"*"
@@ -53,12 +54,21 @@
 					"default": false,
 					"description": "随机展示"
 				},
+				"noahyoung-hx-tip-of-the-day.z_1_activateWhen": {
+					"type": "string",
+					"default": "每日首次启动时",
+					"enum": [
+						"每日首次启动时",
+						"每次IDE启动时"
+					],
+					"description": "何时展示"
+				},
 				"noahyoung-hx-tip-of-the-day.activateOnLaunch": {
 					"type": "boolean",
 					"default": true,
-					"description": "IDE启动时展示"
+					"description": "IDE启动时展示（取消勾选则不再主动展示）"
 				},
-				"noahyoung-hx-tip-of-the-day.webviewSize": {
+				"noahyoung-hx-tip-of-the-day.z_2_webviewSize": {
 					"type": "string",
 					"default": "720:520",
 					"description": "窗体大小（宽高，冒号分隔，默认720:520）"
@@ -75,6 +85,7 @@
 	},
 	"devDependencies": {
 		"cross-env": "^7.0.3",
+		"hx-configuration-helper": "^0.1.1",
 		"inquirer": "^8.2.4"
 	}
 }
