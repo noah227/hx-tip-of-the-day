@@ -2,7 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const _ = {
 	/**
-	 * 文件名修正
+	 * 文件名修正，以避免非法文件名
 	 * @param {string} name
 	 */
 	fixName(name){
@@ -16,7 +16,7 @@ const _ = {
 		return fsPath
 	},
 	/**
-	 * 提取markdown内容
+	 * 提取markdown内容，以`##`级别进行断落划分
 	 * @return {{id: string, stackList: string[]}[][]}
 	 */
 	extractMd(mdPath){

@@ -4,13 +4,17 @@ const {execSync} = require("child_process")
 
 const {fixName, touchDir, extractMd} = require("./common")
 
+// 拉取内存存储路径
 const docsPath = path.resolve(__dirname, "docs")
+// 临时输出文件夹
 const outDir = touchDir(path.resolve(__dirname, "out"))
+// 临时图片输出文件夹
 const imgDir = touchDir(path.resolve(outDir, "images"))
+// 临时md输出文件夹
 const mdOuterDir = touchDir(path.resolve(outDir, "markdowns"))
 const options = {cwd: path.resolve(__dirname)}
 
-
+// 从git拉取部分官方文档内容
 const cloneFromGit = () => {
 	if(fs.existsSync(docsPath)) fs.rmSync(docsPath, {recursive: true})
 	// const docsGit = "https://github.com/dcloudio/hbuilderx-extension-docs.git"
@@ -28,6 +32,7 @@ const cloneFromGit = () => {
 const extractAndCopy = (extracOnly=false) => {
 	console.log("开始生成文件列表")
 	const tutorialPath = path.resolve(__dirname, "docs/zh-cn/Tutorial") 
+	// 目前只提取了 高效极客技巧 这一部分
 	const allowedList = [ "skill.md"]
 	const userGuidePath = path.resolve(tutorialPath, "UserGuide")
 	const mdList = fs.readdirSync(userGuidePath).filter(s => s.endsWith(".md") && allowedList.includes(s))
@@ -36,6 +41,7 @@ const extractAndCopy = (extracOnly=false) => {
 	console.log(`已读取markdown文件内容`, mdContentList)
 	if(extracOnly) return mdContentList
 	
+	// 输出md到临时文件夹
 	mdContentList.forEach(list => {
 		list.forEach(({id, stackList}) => {
 			const mdName = fixName(id.replace(/#+\s*/, "").replace("\r", ""))
@@ -52,6 +58,7 @@ module.exports = {
 	extractAndCopy,
 	copyImages(){
 		const mdContentList = extractAndCopy(true)
+		// 提取并处理图片列表
 		const imgList = mdContentList.reduce((imgList, list) => {
 			for(let i = 0; i < list.length; i ++) {
 				const mdContent = list[i].stackList.join("\n")
@@ -81,6 +88,9 @@ module.exports = {
 		})
 		console.log("图片复制结束")
 	},
+	/**
+	 * 迁移内容到发布文件夹
+	 */
 	migrate(){
 		touchDir(path.resolve(__dirname, "../tips"))
 		console.log("开始迁移图片")
