@@ -6,6 +6,7 @@ builder/docs
 builder/out
 tips/*/
 record.json
+test.*
 
 # local env files
 .env.local
