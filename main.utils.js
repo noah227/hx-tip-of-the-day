@@ -164,10 +164,10 @@ const setHtml = (webview, htmlContent) => {
 	webview.html = `
 	    <html>
 		<head>
-			${getThemeFit()}
+			<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 			<style>
-				body {margin: 0;}
-				img {max-width: 100%; object-fit: contain; /** 覆盖官方的行内zoom设定 */ zoom: unset!important;}
+				${getThemeFit()}
+				${getInjectedStyle()}
 			</style>
 		<head>
 		<body>${htmlContent}</body>
@@ -228,14 +228,16 @@ const getThemeFit = () => {
 		color = "#232323"
 	};
 	const style = `
-		<style>
-			body {
-				color: ${color};
-				background-color: ${background}
-			}
-		</style>
+		body {
+			color: ${color};
+			background-color: ${background}
+		}
 	`
 	return style
+}
+
+const getInjectedStyle = () => {
+	return fs.readFileSync(path.resolve(__dirname, "./styles.css"), {encoding: "utf8"})
 }
 
 module.exports = {
