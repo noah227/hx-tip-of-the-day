@@ -3,11 +3,12 @@ const path = require("path")
 const {execSync} = require("child_process")
 
 const {fixName, touchDir, extractMd, readAndfilterDirs} = require("./common")
+const generateConfig = require("./generate.config")
 
 // 拉取内存存储路径
 const docsPath = path.resolve(__dirname, "docs")
 // 临时输出文件夹
-const outDir = touchDir(path.resolve(__dirname, "out"))
+const outDir = touchDir(path.resolve(__dirname, "out"), true)
 // 临时图片输出文件夹
 const imgDir = touchDir(path.resolve(outDir, "images"))
 // 临时md输出文件夹
@@ -33,7 +34,7 @@ const extractAndCopy = (extracOnly=false) => {
 	console.log("开始生成文件列表")
 	const tutorialPath = path.resolve(__dirname, "docs/zh-cn/Tutorial") 
 	// 目前只提取了 高效极客技巧 这一部分
-	const allowedList = [ "skill.md"]
+	const {allowedList} = generateConfig.docs
 	const userGuidePath = path.resolve(tutorialPath, "UserGuide")
 	const mdList = fs.readdirSync(userGuidePath).filter(s => s.endsWith(".md") && allowedList.includes(s))
 	console.log(`已获取markdown文件列表：\n${mdList.join("\n")}`)
@@ -92,6 +93,7 @@ module.exports = {
 	 * 迁移内容到发布文件夹
 	 */
 	migrate(){
+		console.warn("！！！迁移操作不会自动清空目标文件夹内容，如有需要，进行手动清除")
 		touchDir(path.resolve(__dirname, "../tips"))
 		console.log("开始迁移图片")
 		fs.cpSync(imgDir, touchDir(path.resolve(__dirname, "../tips/images")), {recursive: true})
@@ -151,6 +153,7 @@ module.exports = {
 	 * 文件迁移
 	 */
 	migrateCustomized(){
+		console.warn("！！！迁移操作不会自动清空目标文件夹内容，如有需要，进行手动清除")
 		console.log("开始迁移图片") 
 		fs.cpSync(path.resolve(outDir, "customized/images"), touchDir(path.resolve(__dirname, "../tips/images")), {recursive: true})
 		console.log("开始迁移markdown文件")
