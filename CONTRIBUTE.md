@@ -2,20 +2,20 @@
 
 ### 关于文件结构
 * 每条tip都是一个独立的markdown文件（其拥有自己的文件夹）
-* tip不直接写在运行时读取的目录(`/tips`)，而是使用builder生成，见下 [builder](#builder)
+* tip不直接写在运行时读取的目录( `/tips` )，而是使用builder生成，见下 [builder](#builder)
 
 ### 关于开发与设计
 
 * 运行规则
-	- [ ] 每日运行一次（现在是每次IDE启动时展示）
+	- [x] 每日运行一次/每次启动IDE时运行（可配置）
 	- [x] 集成在菜单栏（帮助 > 每日小贴士），允许用户手动调用
 	- [x] 面板展示前一个、后一个、不再展示
-	* 总之，比葫芦画瓢idea系列`Tip of the Day`的功能
-* 基础数据构成，来自官方 [高效极客技巧](https://hx.dcloud.net.cn/Tutorial/UserGuide/skill)
+	* 总之，比葫芦画瓢idea系列 `Tip of the Day` 的功能
+* 基础数据构成，来自 [官方教程](https://hx.dcloud.net.cn/Tutorial/UserGuide/skill) 的部分内容
 	* 从官方摘取的tip以下划线开头命名
 	* 部分异常（占用空间大，无效信息量多）的图片可能被替换
 * 请勿重复
-* 生成入口`package.json.scripts.generate`
+* 生成入口 `package.json.scripts.generate`
 
 ## builder
 
