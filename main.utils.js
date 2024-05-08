@@ -131,6 +131,10 @@ const showTipDialog = (content, isLaunchTriggered) => {
 				setHtml(webview, getTipContent(1))
 				console.log("下一条")
 				break
+			case "open-external-link":
+				console.log("外链打开", msg.data)
+				hx.env.openExternal(msg.data)
+				break
 		}
 	});
 
@@ -202,9 +206,32 @@ const setHtml = (webview, htmlContent) => {
 	    }
 	    window.addEventListener("hbuilderxReady", initReceive);
 	    </script>
+		<script>
+		const hxWebRoot = "https://hx.dcloud.net.cn"
+		window.onload = () => {
+			document.querySelectorAll("a").forEach(a => {
+				a.addEventListener("click", e => {
+					let href = a.getAttribute("href") ?? ""
+					if(href.startsWith("/")) href = hxWebRoot + href
+					hbuilderx.postMessage({
+						command: "open-external-link",
+						data: href
+					});
+					e.preventDefault()
+				})
+			})
+		}
+		
+		document.addEventListener("mousedown", e => {
+			// 阻止中键链接跳转
+			if(e.button === 1 && e.target.tagName === "A") {
+				e.preventDefault()
+			}
+		})
+		</script>
 	    </html>
 	`
-}
+} 
 
 /**
  * 主题适配
