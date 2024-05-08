@@ -64,7 +64,7 @@ module.exports = {
 			for(let i = 0; i < list.length; i ++) {
 				const mdContent = list[i].stackList.join("\n")
 				// /static/snapshots/tutorial/explorer/explorer_2.png
-				const reg = /\/static\/(\w+\/)*(\w+)\.([\.\w]*)/g
+				const reg = /\/static\/(\w+\/)*([\w-]+)\.([\.\w]*)/g
 				while (true) {
 					const imgMatch = reg.exec(mdContent)
 					if(!imgMatch) break
