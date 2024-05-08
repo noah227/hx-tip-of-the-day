@@ -62,7 +62,7 @@ const _ = {
 		mdContent.split("\n").forEach(line => {
 			line = fixId(line)
 			// table行修复（因为官方文档的md中table的写法不能够被marked直接识别出来，需要处理下）
-			if(/\|(-+\s+\|)+/.test(line)) line = line.replaceAll(/\s+/g, "")
+			if(/\|(\s*-+\s+\|)+/.test(line)) line = line.replaceAll(/\s+/g, "")
 			if(line.startsWith("##")) {
 				stackStart = true
 				if(currentStack.id) mdStack.push({...currentStack})
