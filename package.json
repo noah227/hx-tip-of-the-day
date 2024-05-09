@@ -23,7 +23,8 @@
 	"scripts": {
 		"generate:dev": "cross-env NODE_ENV=development node ./builder/generate.js",
 		"generate": "cross-env NODE_ENV=production node ./builder/generate.js",
-		"cfg:build": "hx-cfg-helper"
+		"cfg:build": "hx-cfg-helper",
+		"pack": "node hx-pack.js"
 	},
 	"activationEvents": [
 		"*"
@@ -84,6 +85,7 @@
 		"uuid": "^9.0.1"
 	},
 	"devDependencies": {
+		"cozip": "^0.1.0",
 		"cross-env": "^7.0.3",
 		"hx-configuration-helper": "^0.1.1",
 		"inquirer": "^8.2.4"
