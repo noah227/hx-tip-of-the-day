@@ -1,7 +1,4 @@
 const hx = require("hbuilderx")
-const {
-	marked
-} = require("marked")
 const fs = require("fs")
 const path = require("path")
 const {

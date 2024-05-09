@@ -1,11 +1,9 @@
 const fs = require("fs")
 const hx = require("hbuilderx")
 const path = require("path")
-const {
-	marked
-} = require("marked")
+const parser = require("./parser.build")
 const {Helper} = require("hx-configuration-helper")
-const keyMap = require("./config.helper")
+const keyMap = require("./config.helper") 
 
 const helper = new Helper(__dirname)
 const excludeList = ["template"]
@@ -74,8 +72,8 @@ const getTipContent = (delta = 1) => {
 	const content = fs.readFileSync(tipPath, {
 		encoding: "utf8"
 	})
-	// src修正
-	return marked.parse(content).replaceAll(/(src=")(tip_files)?\/(\w+\/)*([\w-]+\.\w+)/g, `$1${imagesDir}/$4`)
+	// 安全处理并进行src修正
+	return parser(content, true).replaceAll(/(src=")(tip_files)?\/(\w+\/)*([\w-]+\.\w+)/g, `$1${imagesDir}/$4`)
 }
 
 const getWindowSize = () => {

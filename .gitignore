@@ -7,6 +7,7 @@ builder/out
 tips/*/
 record.json
 test.*
+parser.build.js
 
 # local env files
 .env.local

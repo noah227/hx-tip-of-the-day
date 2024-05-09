@@ -10,7 +10,7 @@ const publishName = `${require("./package.json").name}.zip`
         ["./styles.css", false],
         ["./package.json", false],
         ["./node_modules/hx-configuration-helper", true],
-        ["./node_modules/marked", true],
+        ["./parser.build.js", false],
         ["./tips", true],
     ], err => {
         if (err) console.error(err)
