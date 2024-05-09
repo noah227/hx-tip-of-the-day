@@ -63,3 +63,15 @@ th:first-child,
 td:first-child {
 	border-left: 1px solid #ddd;
 }
+
+blockquote {
+	border-left: 4px solid #42b983;
+	color: #858585;
+	margin: 2em 0;
+	padding-left: 20px;
+}
+
+a {
+	font-weight: 500;
+	color: #42b983;
+}
