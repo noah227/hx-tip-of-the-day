@@ -1,14 +1,14 @@
 # hx-tip-of-the-day
 
-> 类似于jetbrains系列那种`Tip of the Day`
+> 类似于jetbrains系列那种 `Tip of the Day`
 
-![](README_files/1.gif)
+![](https://mp-77dc03ae-7084-429e-8b0f-4d540ae4a430.cdn.bspapp.com/images/hx-tip-of-the-day-1.gif)
 
 ## 配置项
 
 > 如图
 
-![](README_files/1.jpg)
+![](https://mp-77dc03ae-7084-429e-8b0f-4d540ae4a430.cdn.bspapp.com/images/hx-tip-of-the-day-1.jpg)
 
 ## 开发
 
