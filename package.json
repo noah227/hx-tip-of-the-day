@@ -3,7 +3,7 @@
 	"name": "hx-tip-of-the-day",
 	"description": "每日小贴士",
 	"displayName": "每日小贴士",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"publisher": "Noah Young",
 	"engines": {
 		"HBuilderX": "^3.0.0"
